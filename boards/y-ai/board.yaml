@@ -1,0 +1,55 @@
+# Copyright (c) 2024 Texas Instruments Incorporated
+#       Andrew Davis <afd@ti.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# Seth got some of this done in 8/2025 GPLv3
+
+identifier: y-ai
+
+type: mcu
+
+arch: arm
+
+ram: 32
+
+toolchain:
+    - zephyr
+    - gnuarmemb
+
+supported:
+    - uart
+    - gpio
+
+vendor: beagle
+
+sample:
+    name: GPIO with LED!
+
+board:
+    name: beagley-ai
+    full_name: BeagleY-AI
+    vendor: beagle
+    socs:
+        - name: j722s
+
+tests:
+    sample.y-ai.board:
+        tags:
+            - gpio
+            - devicetree
+            - LED
+        filter: dt_enabled_alias_with_parent_compat("led1", "gpio-leds")
+        platform_allow: y-ai
+
+        integration_platforms:
+            - y-ai
+
+        depends_on: gpio
+        harness: console, led
+        harness_config:
+            type: multi_line
+            regex:
+                - "Init pin to an inactive level..."
+                - "Wait a second..."
+                - "Set up this pin to an active level..."
