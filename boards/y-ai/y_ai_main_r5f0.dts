@@ -5,15 +5,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// Changes by Seth at 8/2025 GPLv3
+
 /dts-v1/;
 
 #include <ti/j722s_main_r5.dtsi>
 #include "beagley_ai_j722s_main_r5f0_0-pinctrl.dtsi"
 #include <freq.h>
 
+
+
 / {
-	model = "BeagleBoard.org BeagleY-AI";
-	compatible = "beagle,beagley-ai";
+	model = "BeagleBoard.org y-ai";
+	compatible = "beagle,y-ai";
 
 	chosen {
 		zephyr,sram = &atcm;

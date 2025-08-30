@@ -7,6 +7,8 @@
 
 // Look to ti-k3-pinctrl.h for future reference
 
+// Changes by Seth on 8/2025
+
 #include <zephyr/dt-bindings/pinctrl/ti-k3-pinctrl.h>
 
 &pinctrl {
@@ -19,4 +21,8 @@
 		/* (F24) MCASP0_ACLKR.UART1_TXD */
 		pinmux = <K3_PINMUX(0x01b0, PIN_OUTPUT, MUX_MODE_2)>;
 	};
+
+	
+
 };
+

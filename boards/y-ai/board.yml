@@ -34,7 +34,7 @@ board:
         - name: j722s
 
 tests:
-    sample.y-ai.board:
+    boards.y-ai.board:
         tags:
             - gpio
             - devicetree
