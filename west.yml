@@ -15,33 +15,6 @@
 # information.
 
 manifest:
-  remotes:
-#    - name: zephyrproject
-#      url-base: https://github.com/zephyrproject-rtos
-    - name: silver2row
-      # Define your private git host here
-      url-base: https://github.com/silver2row/zephyr.git
-
-  projects:
-    - name: zephyr
-      remote: silver2row
-      revision: main
-      # Use an exact revision or branch name that is part of your release train.
-
-    - name: y-ai
-      # The local path where the repository will be cloned
-#      path: y-ai
-      # The remote you defined earlier
-      remote: silver2row
-      # The repository path on your private git server
-      url: https://github.com/silver2row/zephyr.git
-      revision: main # Or a specific tag/SHA
-      # This is the key part that tells west to look for a Zephyr module
-      # in this repository
-      west-commands: zephyr/modules/
-
-
-manifest:
   defaults:
     remote: upstream
 

@@ -1,0 +1,13 @@
+# Copyright (c) 2024 Texas Instruments Incorporated
+#       Andrew Davis <afd@ti.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# Seth got some of this done in 8/2025 GPLv3
+
+board:
+  name: y-ai
+  full_name: y-ai
+  vendor: beagle
+  socs:
+  - name: j722s

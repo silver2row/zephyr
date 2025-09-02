@@ -22,6 +22,10 @@
 		pinmux = <K3_PINMUX(0x01b0, PIN_OUTPUT, MUX_MODE_2)>;
 	};
 
+
+	gpio1: gpio1@601000 {
+		pinmux = <K3_PINMUX( , PIN_OUTPUT, MUX_MODE_?)>;
+	};
 	
 
 };

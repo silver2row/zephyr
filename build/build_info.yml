@@ -1,5 +1,5 @@
 west:
-  command: /home/harf/zephyrproject/.venv/bin/west build -p always --board=y-ai samples/hello_world/
-    --cmake-only
+  command: /home/harf/zephyrproject/.venv/bin/west build --pristine=auto --board=y-ai
+    samples/hello_world/
   topdir: /home/harf/zephyrproject
   version: 1.4.0
