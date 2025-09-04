@@ -9,6 +9,7 @@
 
 import argparse
 import contextlib
+import csv
 import logging
 import math
 import os
@@ -207,7 +208,6 @@ class Handler:
             else:
                 self.instance.reason = self.instance.reason or "Unknown Error"
         elif harness.status != TwisterStatus.NONE:
-            print("got in here with status " + str(harness.status))
             self.instance.status = harness.status
             if harness.status in [TwisterStatus.FAIL, TwisterStatus.ERROR]:
                 self.instance.reason = harness.reason
@@ -391,7 +391,7 @@ class BinaryHandler(Handler):
             self.returncode = proc.returncode
             if proc.returncode != 0:
                 self.instance.status = TwisterStatus.ERROR
-                self.instance.reason = f"BinaryHandler returned {proc.returncode}"
+                self.instance.reason = f"rc={proc.returncode}"
             self.try_kill_process_by_pid()
 
         self.execution_time = time.time() - start_time
@@ -565,7 +565,24 @@ class DeviceHandler(Handler):
                 proc.communicate()
                 logger.error(f"{script} timed out")
 
+    def _create_flash_command(self, hardware):
+        flash_command = next(csv.reader([self.options.flash_command]))
+
+        command = [flash_command[0]]
+        command.extend(['--build-dir', self.build_dir])
+
+        board_id = hardware.probe_id or hardware.id
+        if board_id:
+            command.extend(['--board-id', board_id])
+
+        command.extend(flash_command[1:])
+
+        return command
+
     def _create_command(self, runner, hardware):
+        if self.options.flash_command:
+            return self._create_flash_command(hardware)
+
         command = ["west", "flash", "--skip-rebuild", "-d", self.build_dir]
         command_extra_args = []
 
@@ -812,7 +829,27 @@ class DeviceHandler(Handler):
                     ser_pty_process = self._start_serial_pty(serial_pty, ser_pty_master)
                 logger.debug(f"Attach serial device {serial_device} @ {hardware.baud} baud")
                 ser.port = serial_device
-                ser.open()
+
+                # Apply ESP32-specific RTS/DTR reset logic
+                if runner == "esp32":
+                    logger.debug("Applying ESP32 RTS/DTR reset sequence")
+
+                    # Prepare: IO0=HIGH (DTR=True), EN=HIGH (RTS=False)
+                    ser.dtr = True
+                    ser.rts = False
+
+                    ser.open()
+
+                    # Reset pulse: IO0=LOW (DTR=False), EN=LOW (RTS=True)
+                    ser.dtr = False
+                    ser.rts = True
+                    time.sleep(0.01)
+
+                    # Return to normal boot
+                    ser.rts = False
+                else:
+                    ser.open()
+
             except serial.SerialException as e:
                 self._handle_serial_exception(e, hardware, serial_pty, ser_pty_process)
                 return

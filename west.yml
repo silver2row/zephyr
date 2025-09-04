@@ -169,7 +169,7 @@ manifest:
       groups:
         - hal
     - name: hal_espressif
-      revision: b04879d5bfc73eaed2a00e6827f346a9c2b88d5c
+      revision: 465e13cf9e95d2b3baf211ee31ff4bcb12ae5f4e
       path: modules/hal/espressif
       west-commands: west/west-commands.yml
       groups:
@@ -235,7 +235,7 @@ manifest:
       groups:
         - hal
     - name: hal_silabs
-      revision: e4b3db7576e11240592f057bf1ee516360aee7ca
+      revision: 76b2e827a2fba51178c145292098c9afc86a0a33
       path: modules/hal/silabs
       groups:
         - hal
@@ -245,7 +245,7 @@ manifest:
       groups:
         - hal
     - name: hal_stm32
-      revision: 611d54c237623ea71a367502bfbd736fc67ba15f
+      revision: 465fb02d6e3e09f61d887f8a1a5049cfaf85a19d
       path: modules/hal/stm32
       groups:
         - hal
@@ -301,6 +301,9 @@ manifest:
       groups:
         - fs
       revision: 8f5ca347843363882619d8f96c00d8dbd88a8e79
+    - name: lora-basics-modem
+      revision: 9a14f6772c1d6e303bacb2d594c8063bb804b6ee
+      path: modules/lib/lora-basics-modem
     - name: loramac-node
       revision: fb00b383072518c918e2258b0916c996f2d4eebe
       path: modules/lib/loramac-node
@@ -313,7 +316,7 @@ manifest:
       groups:
         - crypto
     - name: mcuboot
-      revision: bf5321bb6906e9e75b4c85b7c98b71c06ae52e90
+      revision: aa4fa2b6e17361dd3ce16a60883059778fd147a9
       path: bootloader/mcuboot
       groups:
         - bootloader
