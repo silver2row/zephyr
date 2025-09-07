@@ -127,7 +127,7 @@ jobs:
     needs: twister-build-prep
     if: needs.twister-build-prep.outputs.size != 0
     container:
-      image: ghcr.io/zephyrproject-rtos/ci-repo-cache:v0.28.1.20250624
+      image: ghcr.io/zephyrproject-rtos/ci-repo-cache:v0.28.4.20250818
       options: '--entrypoint /bin/bash'
     strategy:
       fail-fast: false
@@ -347,7 +347,7 @@ jobs:
 
       - name: Merge Test Results
         run: |
-          junitparser merge artifacts/*/*/twister.xml junit.xml
+          junitparser merge --glob artifacts/**/twister.xml junit.xml
           junit2html junit.xml junit.html
 
       - name: Upload Unit Test Results
