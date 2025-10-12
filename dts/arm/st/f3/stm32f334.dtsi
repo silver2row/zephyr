@@ -6,6 +6,7 @@
 
 #include <st/f3/stm32f3.dtsi>
 #include <zephyr/dt-bindings/adc/stm32l4_adc.h>
+#include <zephyr/dt-bindings/sensor/qdec_stm32.h>
 
 / {
 	soc {
@@ -26,6 +27,12 @@
 				compatible = "st,stm32-pwm";
 				status = "disabled";
 				#pwm-cells = <3>;
+			};
+
+			qdec {
+				compatible = "st,stm32-qdec";
+				st,input-filter-level = <NO_FILTER>;
+				status = "disabled";
 			};
 		};
 
@@ -50,6 +57,12 @@
 				compatible = "st,stm32-counter";
 				status = "disabled";
 			};
+
+			qdec {
+				compatible = "st,stm32-qdec";
+				st,input-filter-level = <NO_FILTER>;
+				status = "disabled";
+			};
 		};
 
 		timers7: timers@40001400 {
@@ -72,7 +85,7 @@
 		adc1: adc@50000000 {
 			compatible = "st,stm32-adc";
 			reg = <0x50000000 0x400>;
-			clocks = <&rcc STM32_CLOCK(AHB1, 28U)>;
+			clocks = <&rcc STM32_CLOCK(AHB1, 28)>;
 			interrupts = <18 0>;
 			status = "disabled";
 			#io-channel-cells = <1>;
